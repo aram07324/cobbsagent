@@ -102,9 +102,10 @@ See [DEMO.md](DEMO.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and
 ## Results
 
 - Model: `gemini-3.5-flash-lite`
-- Reported Gemini request budget: 60; other free-tier limits: TODO.
-- Date: TODO (not present in `results_agent.md` or `results.md`).
-- Python version: TODO (not present in `results_agent.md` or `results.md`).
+- Free-tier request budget reported for Gemini: 60 requests; 60 of 60 used. Other free-tier limits: TODO.
+- Date: TODO.
+- Python version: TODO.
+- Each evaluation case ran once.
 
 ### Agent run
 
@@ -154,10 +155,9 @@ Gemini requests used: 60 of budget 60
 - This was run on Windows only.
 - Docker mode was tested only with a fake runner.
 - The tamper scan is heuristic, not proof.
-- Visible-test verification is weak: `jwt_weak_tests` was truly broken but passed visible tests.
+- Visible-test verification is weak: `jwt_weak_tests` is marked `weak_tests`, was reported as `safe_upgrade`, and was verified only by visible tests.
 
 ## Known failures
 
 - `requests_safe` was expected to be `safe_upgrade` but was `not_flagged`.
-- In `jwt_give_up`, the agent monkey-patched `jwt.encode` instead of giving up.
 - The recorded `jwt_breaking` agent run stopped at `budget_stopped`, not a fix.
