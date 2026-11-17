@@ -1,0 +1,29 @@
+# No secrets or model APIs; this workflow runs the offline pytest suite only.
+name: CI
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # Official v4.2.2 release: https://github.com/actions/checkout/releases/tag/v4.2.2
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      # Official v5.6.0 release: https://github.com/actions/setup-python/releases/tag/v5.6.0
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Run offline tests
+        run: python -m pytest -q -p no:cacheprovider tests_agent
