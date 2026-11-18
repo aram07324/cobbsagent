@@ -1,6 +1,6 @@
 """Milestone-two report serialization and Markdown rendering."""
 
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any
 import json
 
@@ -51,7 +51,7 @@ def results_markdown(
     agent_requests_total = 0
     backend_attempt_counts: dict[str, int] = {}
     for repo_result in results:
-        repo_name = Path(repo_result.get("repo", "")).name
+        repo_name = PureWindowsPath(repo_result.get("repo", "")).name
         for attempt in repo_result.get("attempts", []):
             cases += 1
             repair_count += 1

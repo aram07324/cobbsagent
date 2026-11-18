@@ -336,7 +336,10 @@ def test_http_503_retries_but_404_does_not(
 
     monkeypatch.setattr(agent.urllib.request, "urlopen", fake_404)
     backend, _ = _new_backend(sleeps)
-    with pytest.raises(RuntimeError, match=r"HTTP 404.*v1beta/models/gemini-2.5-flash:generateContent"):
+    with pytest.raises(
+        RuntimeError,
+        match=rf"HTTP 404.*v1beta/models/{re.escape(backend.model)}:generateContent",
+    ):
         backend("system", [{"role": "user", "text": "prompt"}])
     assert len(errors) == 1
     assert backend.total_requests == 1
